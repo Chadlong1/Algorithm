@@ -1,0 +1,20 @@
+-- 코드를 입력하세요
+SELECT
+    a.CATEGORY,
+    SUM(b.TOTAL_SALES) AS TOTAL_SALES
+FROM
+    BOOK a,
+    (SELECT
+        BOOK_ID
+        , SUM(SALES) AS TOTAL_SALES
+    FROM BOOK_SALES
+    WHERE TO_CHAR(SALES_DATE, 'yyyy-mm') = '2022-01'
+    GROUP BY
+        BOOK_ID) b
+WHERE
+    a.BOOK_ID = b.BOOK_ID
+GROUP BY
+    a.CATEGORY
+ORDER BY
+    CATEGORY;
+
