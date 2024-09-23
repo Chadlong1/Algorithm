@@ -1,0 +1,16 @@
+SELECT A.CATEGORY
+      ,A.PRICE AS MAX_PRICE
+      ,A.PRODUCT_NAME
+  FROM FOOD_PRODUCT A
+      ,(SELECT CATEGORY
+              ,MAX(PRICE) AS MAX_PRICE
+          FROM FOOD_PRODUCT
+        GROUP BY CATEGORY                  
+       ) B
+ WHERE A.CATEGORY = B.CATEGORY
+   AND A.CATEGORY IN ('과자', '국', '김치', '식용유')
+   AND A.PRICE = B.MAX_PRICE
+ORDER BY A.PRICE DESC;
+        
+       
+
